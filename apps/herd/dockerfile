@@ -1,0 +1,22 @@
+FROM node:20-alpine AS base
+run npm i -g pnpm
+
+FROM base as builder
+workdir /app
+copy package.json .
+run pnpm i
+copy . .
+run pnpm build
+run pnpm prune --prod
+
+FROM base as runner
+workdir /app
+copy --from=builder /app/build build/
+copy --from=builder /app/node_modules node_modules/
+copy package.json .
+expose 3000
+expose 5174
+cmd node --env-file=.env build
+
+
+

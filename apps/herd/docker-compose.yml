@@ -1,0 +1,10 @@
+services:
+    herd:
+        build: .
+        ports:
+            - "8080:3000"
+            - "8081:5174"
+        environment:
+            - ENV_PATH=${ENV_PATH}
+        volumes:
+            - ${ENV_PATH}:/app/.env

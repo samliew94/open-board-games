@@ -15,7 +15,7 @@
     }
     $: if ($form.room) {
         // only allow alphabets
-        $form.room = $form.room.replace(/[^a-zA-Z]/g, "");
+        $form.room = $form.room.replace(/[^a-zA-Z0-9]/g, "");
     }
 </script>
 
