@@ -9,6 +9,7 @@ declare global {
             };
             token: string;
         }
+
         // interface PageData {}
         // interface PageState {}
         // interface Platform {}

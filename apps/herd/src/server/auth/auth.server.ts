@@ -4,13 +4,12 @@ import { signPayload, verifyToken } from "./jwt.server";
 import { env } from "$env/dynamic/private";
 import type { JwtPayload } from "jsonwebtoken";
 
-const validRooms = env.ROOMS?.split(",") || [];
-
 export function isRequireLogin(cookies: Cookies) {
     try {
         verifyToken(cookies.get("token"));
         return false;
-    } catch (error) {
+    } catch (error: any) {
+        console.log("user needs to relogin, cause:", error?.message);
         return true;
     }
 }
@@ -18,6 +17,8 @@ export function isRequireLogin(cookies: Cookies) {
 export function login(username: string, room: string) {
     try {
         // check if room code is valid
+
+        const validRooms = env.ROOMS?.split(",") || [];
 
         if (!validRooms.includes(room)) {
             throw new Error("Invalid room code");

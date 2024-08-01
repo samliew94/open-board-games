@@ -8,9 +8,18 @@
     const { form, errors, message, enhance, delayed } = superForm(data.form, {
         resetForm: false,
     });
+
+    $: if ($form.username) {
+        // only allow alphabets
+        $form.username = $form.username.replace(/[^a-zA-Z]/g, "");
+    }
+    $: if ($form.room) {
+        // only allow alphabets
+        $form.room = $form.room.replace(/[^a-zA-Z]/g, "");
+    }
 </script>
 
-<div class="space-y-4">
+<div class="space-y-4 px-4">
     <div class="flex justify-center">
         <img
             src="https://www.bookxcess.com/cdn/shop/files/51jRz0kObkL._AC_SL1080.jpg?v=1702363628"
@@ -34,6 +43,7 @@
                 type="text"
                 name="username"
                 class="uppercase"
+                maxlength="8"
                 bind:value={$form.username}
             />
         </label>
@@ -47,6 +57,7 @@
                 type="text"
                 name="room"
                 class="uppercase"
+                maxlength="6"
                 bind:value={$form.room}
             />
         </label>

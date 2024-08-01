@@ -7,8 +7,10 @@ export async function handle({ event, resolve }) {
     const requireLogin = isRequireLogin(event.cookies);
 
     const token = event.cookies.get("token");
+
+    console.log("requireLogin:", requireLogin, "token:", token);
+
     if (requireLogin) {
-        console.log("unauthenticated user's token:", token);
         if (event.url.pathname !== "/login") {
             throw redirect(302, "/login");
         } else {
@@ -19,6 +21,10 @@ export async function handle({ event, resolve }) {
         event.locals.token = token!;
 
         console.log("authenticated user", event.locals.user);
+
+        if (event.url.pathname.startsWith("/api")) {
+            return await resolve(event);
+        }
 
         if (event.url.pathname !== "/game") {
             console.log("redirecting", event.locals.user, "to /game");

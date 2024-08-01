@@ -1,18 +1,17 @@
 import { env } from "$env/dynamic/private";
 import jwt, { type JwtPayload } from "jsonwebtoken";
 
-const JWT_SECRET = env.JWT_SECRET!;
-
 export function signPayload(payload: any) {
-    return jwt.sign(payload, JWT_SECRET);
+    return jwt.sign(payload, env.JWT_SECRET);
 }
 
 export function verifyToken(token: string | undefined) {
     try {
+        console.log(`verifying token: ${token}. SECRET=${env.JWT_SECRET}`);
         if (!token) {
             throw new Error("Bad token");
         }
-        return jwt.verify(token, JWT_SECRET);
+        return jwt.verify(token, env.JWT_SECRET);
     } catch (error) {
         throw error;
     }

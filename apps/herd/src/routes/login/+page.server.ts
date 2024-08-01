@@ -1,3 +1,4 @@
+import { dev } from "$app/environment";
 import { fail, message, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
 import { z } from "zod";
@@ -7,15 +8,19 @@ import { login } from "../../server/auth/auth.server.js";
 const schema = z.object({
     username: z
         .string()
-        .min(2, { message: "Username is required" })
-        .max(10, { message: "Username is too long" })
-        .default("SAM")
+        .min(2, { message: "Username is too short" })
+        .max(8, { message: "Username is too long" })
+        .regex(/^[a-zA-Z]+$/, {
+            message: "Username can only contain letters and numbers",
+        })
         .transform((val) => val.toUpperCase()),
     room: z
         .string()
-        .min(1, { message: "room is required" })
-        .max(6, { message: "room is too long" })
-        .default("123")
+        .min(1, { message: "Room is required" })
+        .max(6, { message: "Room is too long" })
+        .regex(/^[a-zA-Z0-9]+$/, {
+            message: "Username can only contain letters and numbers",
+        })
         .transform((val) => val.toUpperCase()),
 });
 
@@ -27,9 +32,7 @@ export const load = async () => {
 };
 
 export const actions = {
-    default: async ({ request, cookies }) => {
-        await new Promise((r) => setTimeout(r, 1000));
-
+    default: async ({ request, cookies, url }) => {
         const form = await superValidate(request, zod(schema));
 
         if (!form.valid) {
@@ -47,7 +50,7 @@ export const actions = {
 
             cookies.set("token", token, {
                 path: "/",
-                maxAge: 3153600000,
+                secure: !dev,
             });
         } catch (error: any) {
             return message(form, { error: error?.message }, { status: 400 });

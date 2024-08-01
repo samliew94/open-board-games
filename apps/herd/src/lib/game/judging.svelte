@@ -13,10 +13,10 @@
     }
 </script>
 
-<div class="flex flex-col gap-4">
-    <h3 class="">{$gameData?.topic}</h3>
-    <p class="text-xs">Select Majority & Cow</p>
-    <div class="grid grid-cols-2 gap-4 p-4 border">
+<h3 class="">{$gameData?.topic}</h3>
+<p class="text-xs">Select Majority & Cow</p>
+<div class="p-4 h-full overflow-y-auto border border-dashed border-2">
+    <div class="grid grid-cols-2 gap-4">
         {#each $gameData?.players as { username, answer, majority, cow }, j}
             <div class="grid border p-2 gap-2">
                 <div class="grid gap-2">
@@ -44,9 +44,9 @@
             </div>
         {/each}
     </div>
-    {#if $gameData?.isHost}
-        <div class="flex justify-center">
-            <button class="btn" on:click={handleNext}>next</button>
-        </div>
-    {/if}
 </div>
+{#if $gameData?.isHost}
+    <div class="flex justify-center">
+        <button class="btn" on:click={handleNext}>next</button>
+    </div>
+{/if}

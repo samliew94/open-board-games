@@ -14,14 +14,16 @@
     }
 </script>
 
-<div class="flex flex-col gap-4">
-    <h2 class="text-center">lobby</h2>
-    <div class="grid grid-cols-[auto_auto_auto] border p-4 gap-4">
-        {#if $gameData?.players}
-            {#each $gameData.players as { username }, i}
+<p class="uppercase text-2xl">lobby</p>
+<div
+    class="flex flex-col border border-dashed border-2 px-4 py-2 gap-4 h-full overflow-y-auto"
+>
+    {#if $gameData?.players}
+        {#each $gameData.players as { username }, i}
+            <div class="grid grid-cols-[auto_auto_auto] gap-4">
                 <p>{i + 1}.</p>
-                <p class="">{username}</p>
-                <div class="">
+                <p>{username}</p>
+                <div>
                     {#if $gameData?.isHost}
                         {#if i > 0}
                             <button
@@ -37,12 +39,12 @@
                         <div></div>
                     {/if}
                 </div>
-            {/each}
-        {/if}
-    </div>
-    {#if $gameData?.isHost}
-        <div class="flex justify-center">
-            <button class="btn" on:click={handleStart}>start</button>
-        </div>
+            </div>
+        {/each}
     {/if}
 </div>
+{#if $gameData?.isHost}
+    <div class="flex justify-center">
+        <button class="btn" on:click={handleStart}>start</button>
+    </div>
+{/if}

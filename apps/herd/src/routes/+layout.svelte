@@ -13,6 +13,8 @@
     setContext("auth", auth);
 </script>
 
-<div class="border p-4 m-4">
-    <slot></slot>
+<div class="flex justify-center items-center h-screen">
+    <div class="h-full flex flex-col justify-center items-center py-2 gap-4">
+        <slot />
+    </div>
 </div>

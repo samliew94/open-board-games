@@ -43,9 +43,9 @@ export function handleConnection(socket: Socket) {
 
         const { room, username } = verify;
 
-        if (isGameStarted(room)) {
-            const index = findPlayerIndexByRoomAndUsername(room, username);
+        const index = findPlayerIndexByRoomAndUsername(room, username);
 
+        if (isGameStarted(room)) {
             if (index === -1) {
                 console.log(
                     `Disconnecting player ${socket.id} ${username} as game already started...`
@@ -55,7 +55,11 @@ export function handleConnection(socket: Socket) {
                 updatePlayer(room, index, socket);
             }
         } else {
-            addNewPlayer(room, username, socket);
+            if (index === -1) {
+                addNewPlayer(room, username, socket);
+            } else {
+                updatePlayer(room, index, socket);
+            }
         }
 
         broadcastGameData(room);
