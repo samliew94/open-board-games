@@ -49,7 +49,7 @@ export const actions = {
 
             cookies.set("token", token, {
                 path: "/",
-                secure: false,
+                // secure: false,
             });
         } catch (error: any) {
             return message(form, { error: error?.message }, { status: 400 });
