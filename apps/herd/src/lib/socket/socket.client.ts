@@ -1,4 +1,4 @@
-import { PUBLIC_SOCKET_URL } from "$env/static/public";
+import { env } from "$env/dynamic/public";
 import { io, Socket } from "socket.io-client";
 let socket: Socket;
 let auth: any;
@@ -11,7 +11,7 @@ export function getSocket() {
  * all client side socket.io action happens here
  */
 export function initSocketServer(auth: any) {
-    socket = io(PUBLIC_SOCKET_URL, {
+    socket = io(env.PUBLIC_SOCKET_URL, {
         autoConnect: false,
         auth: {
             token: auth.token,
