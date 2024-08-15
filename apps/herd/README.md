@@ -6,11 +6,11 @@ _Reminder: don't forget to append scheme (http:// or https://) and port!_
 Docker Run
 ```
 docker run \
--e ORIGIN="http://172.29.224.116:8080" \
+-e ORIGIN="http://PUBLIC_IPv4_ADDRESS:8080" \
 -e JWT_SECRET="FOO" \
 -e ROOMS="123" \
 -e SECURE="false" \
--e PUBLIC_SOCKET_URL="http://172.29.224.116:8081" \
+-e PUBLIC_SOCKET_URL="http://PUBLIC_IPv4_ADDRESS:8081" \
 -e SOCKET_PORT="3001" \
 -p 8080:3000 \
 -p 8081:3001 \
