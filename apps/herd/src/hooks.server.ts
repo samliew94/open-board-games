@@ -5,6 +5,10 @@ import { initSocketIo } from "./server/socket.server";
 export async function handle({ event, resolve }) {
     initSocketIo();
 
+    if (event.url.pathname === "/health") {
+        return await resolve(event);
+    }
+
     const requireLogin = isRequireLogin(event.cookies);
 
     const token = event.cookies.get("token");
