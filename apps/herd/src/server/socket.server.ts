@@ -16,6 +16,10 @@ import {
 
 let io: any;
 
+export function getIo() {
+    return io;
+}
+
 export function initSocketIo() {
     if (!io) {
         const httpServer = createServer();
@@ -58,12 +62,17 @@ export function initSocketIo() {
                 majority(socket, payload.index ?? -1)
             );
             socket.on("cow", (payload) => cow(socket, payload?.index ?? -1));
+
             socket.on("award", () => award(socket));
+
+            socket.on("disconnect-me", () => {
+                handleDisconnect(socket);
+            })
         });
 
         httpServer.listen(env.SOCKET_PORT);
         console.log("initialized io...");
     } else {
-        console.log(`io already initialized`);
+        // console.log(`io already initialized`);
     }
 }

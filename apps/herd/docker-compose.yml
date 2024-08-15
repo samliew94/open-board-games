@@ -3,8 +3,12 @@ services:
         build: .
         ports:
             - "8080:3000"
-            - "8081:5174"
+            - "8081:3001"
         environment:
-            - ENV_PATH=${ENV_PATH}
-        volumes:
-            - ${ENV_PATH}:/app/.env
+            # ORIGIN: "http://172.29.224.116:8080"
+            ORIGIN: ${ORIGIN}
+            JWT_SECRET: "FOO"
+            ROOMS: "123"
+            SECURE: "false"
+            PUBLIC_SOCKET_URL: "http://172.29.224.116:8081"
+            SOCKET_PORT: "3001"

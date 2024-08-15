@@ -1,26 +1,30 @@
-# Running Container with ENV (runtime)
-Localhost:
+# Running Container
+Choose either `run` or `compose` (_recommended_)  
+_Reminder: don't forget to append scheme (http:// or https://) and port!_  
+
+
+Docker Run
 ```
 docker run \
--e ORIGIN="http://localhost:8080" \
+-e ORIGIN="http://172.29.224.116:8080" \
 -e JWT_SECRET="FOO" \
 -e ROOMS="123" \
--e PUBLIC_SOCKET_URL="http://localhost:8081" \
+-e SECURE="false" \
+-e PUBLIC_SOCKET_URL="http://172.29.224.116:8081" \
 -e SOCKET_PORT="3001" \
 -p 8080:3000 \
 -p 8081:3001 \
+--name herd \
 herd
 ```
 
-Production:
+Docker Compose
 ```
-docker run \
--e ORIGIN="https://ELB-FOO-BAR:8080" \
--e JWT_SECRET="!pD^&@#00bdAS&d62" \
--e ROOMS="LYPKPG" \
--e PUBLIC_SOCKET_URL="https://ELB-FOO-BAR:8081" \
--e SOCKET_PORT="3001" \
--p 8080:3000 \
--p 8081:3001 \
-herd
+ORIGIN="http://172.29.224.116:8080" \
+JWT_SECRET="FOO" \
+ROOMS="123" \
+SECURE="false" \
+PUBLIC_SOCKET_URL="http://172.29.224.116:8081" \
+SOCKET_PORT="3001" \
+docker compose up -d --build
 ```

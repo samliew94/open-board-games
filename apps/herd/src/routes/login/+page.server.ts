@@ -1,3 +1,4 @@
+import { env } from "$env/dynamic/private";
 import { fail, message, superValidate } from "sveltekit-superforms";
 import { zod } from "sveltekit-superforms/adapters";
 import { z } from "zod";
@@ -49,7 +50,7 @@ export const actions = {
 
             cookies.set("token", token, {
                 path: "/",
-                // secure: false,
+                secure: env.SECURE === "true",
             });
         } catch (error: any) {
             return message(form, { error: error?.message }, { status: 400 });

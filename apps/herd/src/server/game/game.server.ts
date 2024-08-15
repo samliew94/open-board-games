@@ -64,8 +64,22 @@ export function handleConnection(socket: Socket) {
 
         broadcastGameData(room);
     } catch (error: any) {
+        console.error(error);
         socket.emit("error", error?.message);
     }
+}
+
+export function disconnectSocketByUsername(room: string, username: string) {
+    const player = findPlayerByRoomAndUsername(room, username);
+
+    if (!player) {
+        throw new Error("player not found!");
+    }
+
+    disconnectSocket(player.socket);
+    console.log(`manually disconnected socket.id: ${player.socket.id}, username:${username}`);
+
+    broadcastGameData(room);
 }
 
 export function broadcastGameData(room: string) {
@@ -206,8 +220,7 @@ export function handleDisconnect(socket: Socket) {
         }
 
         if (!players.length) {
-            delete game[room];
-            console.log(`deleted room ${room} due to 0 players`);
+            console.log(`room ${room} is now empty`);
         }
     } catch (error: any) {
         console.error(`failed to remove player ${error?.message}`);

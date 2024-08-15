@@ -4,19 +4,22 @@ import { initSocketIo } from "./server/socket.server";
 
 export async function handle({ event, resolve }) {
     initSocketIo();
+
     const requireLogin = isRequireLogin(event.cookies);
 
     const token = event.cookies.get("token");
 
-    console.log("requireLogin:", requireLogin, "token:", token);
-
     if (requireLogin) {
+
         if (event.url.pathname !== "/login") {
+            console.log('redirecting to /login');
             throw redirect(302, "/login");
         } else {
+            console.log('user already at /login, continue to', event.url.pathname)
             return await resolve(event);
         }
     } else {
+
         event.locals.user = getUser(event.cookies);
         event.locals.token = token!;
 

@@ -7,7 +7,7 @@ export function signPayload(payload: any) {
 
 export function verifyToken(token: string | undefined) {
     try {
-        console.log(`verifying token: ${token}. SECRET=${env.JWT_SECRET}`);
+        // console.log(`verifying token: ${token}. SECRET=${env.JWT_SECRET}`);
         if (!token) {
             throw new Error("Bad token");
         }
