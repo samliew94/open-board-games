@@ -20,11 +20,11 @@ herd
 
 Docker Compose
 ```
-ORIGIN="http://172.29.224.116:8080" \
+ORIGIN="http://PUBLIC_IPv4_ADDRESS:8080" \
 JWT_SECRET="FOO" \
 ROOMS="123" \
 SECURE="false" \
-PUBLIC_SOCKET_URL="http://172.29.224.116:8081" \
+PUBLIC_SOCKET_URL="http://PUBLIC_IPv4_ADDRESS:8081" \
 SOCKET_PORT="3001" \
 docker compose up -d --build
 ```

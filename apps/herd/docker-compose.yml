@@ -5,10 +5,9 @@ services:
             - "8080:3000"
             - "8081:3001"
         environment:
-            # ORIGIN: "http://172.29.224.116:8080"
             ORIGIN: ${ORIGIN}
-            JWT_SECRET: "FOO"
-            ROOMS: "123"
-            SECURE: "false"
-            PUBLIC_SOCKET_URL: "http://172.29.224.116:8081"
-            SOCKET_PORT: "3001"
+            JWT_SECRET: ${JWT_SECRET}
+            ROOMS: ${ROOMS}
+            SECURE: ${SECURE}
+            PUBLIC_SOCKET_URL: ${PUBLIC_SOCKET_URL}
+            SOCKET_PORT: ${SOCKET_PORT}
