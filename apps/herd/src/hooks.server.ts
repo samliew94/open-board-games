@@ -5,7 +5,7 @@ import { initSocketIo } from "./server/socket.server";
 export async function handle({ event, resolve }) {
     initSocketIo();
 
-    if (event.url.pathname === "/health") {
+    if (event.url.pathname === "/api/health") {
         return await resolve(event);
     }
 
