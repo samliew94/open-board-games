@@ -22,7 +22,19 @@ export function getIo() {
 
 export function initSocketIo() {
     if (!io) {
-        const httpServer = createServer();
+        const httpServer = createServer((req, res) => {
+            if (req.method === 'GET' && req.url === '/api/health') {
+                // Set the response header to return JSON
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+
+                // Send a JSON response with a message
+                res.end(JSON.stringify({ message: 'ok' }));
+            } else {
+                // Handle other routes or methods
+                res.writeHead(404, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ message: 'Not Found' }));
+            }
+        });
         io = new Server(httpServer, {
             cors: {},
         });
