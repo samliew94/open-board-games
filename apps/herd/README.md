@@ -20,6 +20,8 @@ herd
 
 Docker Compose
 ```
+WEB_PORT=8080 \
+SOCKET_PORT=8081 \
 ORIGIN="http://PUBLIC_IPv4_ADDRESS:8080" \
 JWT_SECRET="FOO" \
 ROOMS="123" \
